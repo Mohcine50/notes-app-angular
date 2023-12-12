@@ -5,6 +5,8 @@ module.exports = {
     extend: {},
     fontFamily: {
       monolisa: "monolisa",
+      mina: "Mina",
+      ubuntu: " Ubuntu ",
     },
   },
   plugins: [],
