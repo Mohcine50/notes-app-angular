@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NoteService } from '../services/note.service';
+import { NoteService } from '../../services/note.service';
+import { Priority } from '../../types';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,9 @@ export class HeaderComponent {
 
   addNote = (event: Event) => {
     event.preventDefault();
-    const noteContent = this.addNoteForm.controls.noteContent.value;
+    const noteContent = this.addNoteForm.controls.noteContent.value as string;
+
     console.log(noteContent);
+    this.noteService.addNote(noteContent, Priority.MEDIUM);
   };
 }
