@@ -1,15 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Note, Priority } from '../types';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NoteService {
-  constructor() {}
+  private notes: Note[] = [];
+  private noteSubject: Subject<Note[]> = new Subject();
 
-  getAllNotes = (): Note[] => {
-    const notes = this.getNotesFromStorage();
-    return notes;
+  constructor() {
+    this.loadNotesFromStorage();
+  }
+
+  private loadNotesFromStorage(): void {
+    try {
+      this.notes = this.getNotesFromStorage();
+      this.noteSubject.next(this.notes);
+    } catch (error) {
+      console.error('Error loading notes from localStorage:', error);
+    }
+  }
+
+  getAllNotes = (): Observable<Note[]> => {
+    return this.noteSubject.asObservable();
   };
 
   addNote = (content: string, priority: Priority) => {
@@ -21,7 +35,7 @@ export class NoteService {
     };
 
     notes.push(note);
-
+    this.notes.push(note);
     this.updateNotesOnStorage(notes);
   };
 
@@ -29,7 +43,7 @@ export class NoteService {
 
   updateNote = (noteId: string) => {};
 
-  getNotesFromStorage = (): Note[] => {
+  private getNotesFromStorage = (): Note[] => {
     const notesString = localStorage.getItem('notes');
     if (!notesString) return [];
 
@@ -39,11 +53,12 @@ export class NoteService {
     return data;
   };
 
-  updateNotesOnStorage = (notes: Note[]) => {
+  private updateNotesOnStorage = (notes: Note[]) => {
     const notesJson = {
       data: notes,
     };
 
     localStorage.setItem('notes', JSON.stringify(notesJson));
+    this.noteSubject.next(this.notes);
   };
 }

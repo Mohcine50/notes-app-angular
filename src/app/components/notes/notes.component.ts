@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoteComponent } from '../note/note.component';
 import { NoteService } from '../../services/note.service';
 import { Note } from '../../types';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-notes',
@@ -12,11 +13,12 @@ import { Note } from '../../types';
   styles: ``,
 })
 export class NotesComponent implements OnInit {
-  notes: Note[] = [];
+  notes$!: Observable<Note[]>;
 
   constructor(private noteService: NoteService) {}
 
   ngOnInit(): void {
-    this.notes = this.noteService.getAllNotes();
+    this.notes$ = this.noteService.getAllNotes();
+    this.noteService.getAllNotes().subscribe();
   }
 }
