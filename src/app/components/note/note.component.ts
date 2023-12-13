@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Note } from '../../types';
 
 @Component({
   selector: 'app-note',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './note.component.html',
 })
-export class NoteComponent {}
+export class NoteComponent {
+  @Input() note!: Note;
+}
