@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   styles: ``,
 })
 export class NotesComponent implements OnInit {
-  notes$!: Observable<Note[]>;
+  notes$: Observable<Note[]> = this.noteService.getAllNotes();
 
   constructor(private noteService: NoteService) {}
 

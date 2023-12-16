@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Note, Priority } from '../types';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NoteService {
   private notes: Note[] = [];
-  private noteSubject: Subject<Note[]> = new Subject();
+  private noteSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>(
+    []
+  );
 
   constructor() {
     this.loadNotesFromStorage();

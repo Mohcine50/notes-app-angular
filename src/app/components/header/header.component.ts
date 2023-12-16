@@ -20,8 +20,7 @@ export class HeaderComponent {
   addNote = (event: Event) => {
     event.preventDefault();
     const noteContent = this.addNoteForm.controls.noteContent.value as string;
-
-    console.log(noteContent);
+    this.addNoteForm.controls.noteContent.reset();
     this.noteService.addNote(noteContent, Priority.MEDIUM);
   };
 }

@@ -1,4 +1,11 @@
-<div>
-  {{ note.content }}
-  {{ note.priority }}
+<div class="flex justify-between items-center m-2">
+  <h3 class="font-mina text-lg">{{ note.content }}</h3>
+  <div class="flex justify-between items-center gap-4">
+    <button class="px-3 py-2 rounded bg-red-500 text-white font-medium">
+      delete
+    </button>
+    <button class="px-3 py-2 rounded bg-green-500 text-white font-medium">
+      Done
+    </button>
+  </div>
 </div>
