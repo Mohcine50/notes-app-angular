@@ -23,7 +23,7 @@ export class HeaderComponent {
     this.addNoteForm.controls.noteContent.reset();
     console.log(noteContent);
     if (noteContent !== '' && noteContent !== null) {
-      this.noteService.addNote(noteContent, Priority.MEDIUM);
+      this.noteService.addNote(noteContent, Priority.LOW);
     }
   };
 }

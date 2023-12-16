@@ -1,5 +1,10 @@
-<div class="flex justify-between items-center m-2">
-  <h3 class="font-mina text-lg">{{ note.content }}</h3>
+<div
+  class="flex justify-between items-center my-2"
+  [ngClass]="NOTE_SIZE[note.priority].margin"
+>
+  <h3 class="font-mina" [ngClass]="NOTE_SIZE[note.priority].textSize">
+    {{ note.content }}
+  </h3>
   <div class="flex justify-between items-center gap-4">
     <button
       class="px-3 py-2 rounded bg-red-500 text-white font-medium"

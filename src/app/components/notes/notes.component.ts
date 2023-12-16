@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoteComponent } from '../note/note.component';
 import { NoteService } from '../../services/note.service';
 import { Note } from '../../types';
-import { Observable } from 'rxjs';
+import { Observable, map, pipe } from 'rxjs';
 
 @Component({
   selector: 'app-notes',
@@ -13,12 +13,24 @@ import { Observable } from 'rxjs';
   styles: ``,
 })
 export class NotesComponent implements OnInit {
-  notes$: Observable<Note[]> = this.noteService.getAllNotes();
+  notes$!: Observable<Note[]>;
 
   constructor(private noteService: NoteService) {}
 
+  NOTE_SIZE = {
+    High: 1,
+    Medium: 2,
+    Low: 3,
+  };
   ngOnInit(): void {
-    this.notes$ = this.noteService.getAllNotes();
+    this.notes$ = this.noteService.getAllNotes().pipe(
+      map((notes) =>
+        notes.map((note) => {
+          return { ...note, noteSize: this.NOTE_SIZE[note.priority] };
+        })
+      ),
+      map((notes) => notes.sort((a, b) => a.noteSize - b.noteSize))
+    );
     this.noteService.getAllNotes().subscribe();
   }
 }
