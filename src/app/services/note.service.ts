@@ -6,7 +6,6 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class NoteService {
-  private notes: Note[] = [];
   private noteSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>(
     []
   );
@@ -17,8 +16,8 @@ export class NoteService {
 
   private loadNotesFromStorage(): void {
     try {
-      this.notes = this.getNotesFromStorage();
-      this.noteSubject.next(this.notes);
+      const notes = this.getNotesFromStorage();
+      this.noteSubject.next(notes);
     } catch (error) {
       console.error('Error loading notes from localStorage:', error);
     }
@@ -30,18 +29,22 @@ export class NoteService {
 
   addNote = (content: string, priority: Priority) => {
     const notes = this.getNotesFromStorage();
+    const noteId = Date.now();
     const note: Note = {
-      id: notes.length.toString(),
+      id: noteId.toString(),
       content,
       priority,
     };
 
     notes.push(note);
-    this.notes.push(note);
     this.updateNotesOnStorage(notes);
   };
 
-  deleteNote = (noteId: string) => {};
+  deleteNote = (noteId: string) => {
+    const notes = this.getNotesFromStorage();
+    const updatedNotes = notes.filter((note) => note.id !== noteId);
+    this.updateNotesOnStorage(updatedNotes);
+  };
 
   updateNote = (noteId: string) => {};
 
@@ -61,6 +64,6 @@ export class NoteService {
     };
 
     localStorage.setItem('notes', JSON.stringify(notesJson));
-    this.noteSubject.next(this.notes);
+    this.noteSubject.next(notes);
   };
 }

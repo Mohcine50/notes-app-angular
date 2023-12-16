@@ -21,6 +21,9 @@ export class HeaderComponent {
     event.preventDefault();
     const noteContent = this.addNoteForm.controls.noteContent.value as string;
     this.addNoteForm.controls.noteContent.reset();
-    this.noteService.addNote(noteContent, Priority.MEDIUM);
+    console.log(noteContent);
+    if (noteContent !== '' && noteContent !== null) {
+      this.noteService.addNote(noteContent, Priority.MEDIUM);
+    }
   };
 }
