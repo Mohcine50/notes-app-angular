@@ -2,17 +2,31 @@
   <form
     [formGroup]="addNoteForm"
     (ngSubmit)="addNote($event)"
-    class="max-w-3xl w-full flex border-red-400 border-2 rounded-md py-2 px-3"
+    class="max-w-3xl w-full flex border-red-400 border-2 rounded-md px-3"
   >
     <input
       type="text"
       name="content"
       id="content"
-      placeholder="note content"
+      placeholder="Note content"
       formControlName="noteContent"
-      class="text-lg font-normal outline-none grow"
+      class="text-lg font-normal outline-none grow py-2"
     />
-    <button type="submit" class="w-10 h-10">
+    <select
+      class="bg-white border-x-2 border-red-400 py-2 px-4 cursor-pointer font-mina"
+      formControlName="priority"
+    >
+      <option disabled selected value="">Priority</option>
+      <option
+        ngClass="font-mina px-4"
+        *ngFor="let priority of priorities"
+        [ngValue]="priority"
+        [defaultSelected]="addNoteForm.controls.priority.value === priority"
+      >
+        {{ priority }}
+      </option>
+    </select>
+    <button type="submit" class="w-10 h-10 py-1 px-2">
       <svg
         width="40px"
         height="40px"

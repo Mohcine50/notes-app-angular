@@ -11,10 +11,13 @@ import { Priority } from '../../types';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
+  priorities = Object.keys(Priority);
+
   constructor(private noteService: NoteService) {}
 
   addNoteForm = new FormGroup({
     noteContent: new FormControl(''),
+    priority: new FormControl<Priority>(Priority.LOW),
   });
 
   addNote = (event: Event) => {
