@@ -13,9 +13,9 @@ export class NoteComponent {
   @Input() note!: Note;
 
   NOTE_SIZE = {
-    High: { textSize: 'text-6xl', margin: '' },
-    Medium: { textSize: 'text-3xl', margin: 'mx-7' },
-    Low: { textSize: 'text-lg', margin: 'mx-14' },
+    High: 'text-6xl',
+    Medium: 'text-3xl',
+    Low: 'text-lg',
   };
 
   constructor(private noteService: NoteService) {}
