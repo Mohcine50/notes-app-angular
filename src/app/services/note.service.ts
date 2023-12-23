@@ -46,7 +46,14 @@ export class NoteService {
     this.updateNotesOnStorage(updatedNotes);
   };
 
-  updateNote = (noteId: string) => {};
+  updateNote = (noteId: string, content: string) => {
+    const notes = this.getNotesFromStorage();
+    const updatedNotes = notes.map((note) => {
+      if (note.id === noteId) return { ...note, content };
+      else return note;
+    });
+    this.updateNotesOnStorage(updatedNotes);
+  };
 
   private getNotesFromStorage = (): Note[] => {
     const notesString = localStorage.getItem('notes');
