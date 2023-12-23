@@ -13,14 +13,18 @@ export class NoteComponent {
   @Input() note!: Note;
 
   NOTE_SIZE = {
-    High: 'text-6xl',
-    Medium: 'text-3xl',
-    Low: 'text-lg',
+    HIGH: 'text-5xl',
+    MEDIUM: 'text-2xl',
+    LOW: 'text-lg',
   };
 
   constructor(private noteService: NoteService) {}
 
   deleteNote = (noteId: string) => {
     this.noteService.deleteNote(noteId);
+  };
+
+  updateNote = (noteId: string) => {
+    this.noteService.updateNote(noteId);
   };
 }

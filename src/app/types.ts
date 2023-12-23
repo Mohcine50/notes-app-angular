@@ -5,7 +5,7 @@ export type Note = {
 };
 
 export enum Priority {
-  HIGH = 'High',
-  MEDIUM = 'Medium',
-  LOW = 'Low',
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW',
 }

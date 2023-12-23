@@ -16,12 +16,10 @@
       class="bg-white border-x-2 border-red-400 py-2 px-4 cursor-pointer font-mina"
       formControlName="priority"
     >
-      <option disabled selected value="">Priority</option>
       <option
         ngClass="font-mina px-4"
         *ngFor="let priority of priorities"
         [ngValue]="priority"
-        [defaultSelected]="addNoteForm.controls.priority.value === priority"
       >
         {{ priority }}
       </option>

@@ -18,9 +18,9 @@ export class NotesComponent implements OnInit {
   constructor(private noteService: NoteService) {}
 
   NOTE_SIZE = {
-    High: 1,
-    Medium: 2,
-    Low: 3,
+    HIGH: 1,
+    MEDIUM: 2,
+    LOW: 3,
   };
   ngOnInit(): void {
     this.notes$ = this.noteService.getAllNotes().pipe(

@@ -22,11 +22,15 @@ export class HeaderComponent {
 
   addNote = (event: Event) => {
     event.preventDefault();
+
     const noteContent = this.addNoteForm.controls.noteContent.value as string;
+    const notePriority = this.addNoteForm.controls.priority.value as Priority;
+
     this.addNoteForm.controls.noteContent.reset();
-    console.log(noteContent);
+    console.log(noteContent, notePriority);
+
     if (noteContent !== '' && noteContent !== null) {
-      this.noteService.addNote(noteContent, Priority.LOW);
+      this.noteService.addNote(noteContent, notePriority);
     }
   };
 }
