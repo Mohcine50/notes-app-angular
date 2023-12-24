@@ -26,7 +26,10 @@
         </g>
       </svg>
     </button>
-    <h3 class="font-mina" [ngClass]="NOTE_SIZE[note.priority]">
+    <h3
+      class="font-mina {{ NOTE_SIZE[note.priority] }}"
+      [ngClass]="{ 'line-through': note.status === Status.DONE }"
+    >
       {{ note.content }}
     </h3>
   </div>
@@ -59,7 +62,11 @@
         </g>
       </svg>
     </button>
-    <button class="w-6 h-6 rounded bg-green-500 text-white font-medium">
+    <button
+      class="w-6 h-6 rounded bg-green-500 text-white font-medium"
+      (click)="doneNote(note.id)"
+      *ngIf="note.status === Status.INCOMPLETE; else incomplete"
+    >
       <svg
         width="24px"
         height="24px"
@@ -102,6 +109,42 @@
         </g>
       </svg>
     </button>
+    <ng-template #incomplete>
+      <button
+        class="w-6 h-6 rounded bg-green-500 text-white font-medium"
+        (click)="incompleteNote(note.id)"
+        #incomplete
+      >
+        <svg
+          width="24px"
+          height="24px"
+          viewBox="0 0 20 20"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="#000000"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <g id="layer1">
+              <path
+                d="M 2.9296875 2.2226562 L 2.2226562 2.9296875 L 9.2929688 10 L 2.2226562 17.070312 L 2.9296875 17.777344 L 10 10.707031 L 17.070312 17.777344 L 17.777344 17.070312 L 10.707031 10 L 17.777344 2.9296875 L 17.070312 2.2226562 L 10 9.2929688 L 2.9296875 2.2226562 z "
+                style="
+                  fill: #ffff;
+                  fill-opacity: 1;
+                  stroke: none;
+                  stroke-width: 0px;
+                "
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </button>
+    </ng-template>
   </div>
 </div>
 <!-- Update note form template -->

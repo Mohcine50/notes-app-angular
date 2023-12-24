@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Note } from '../../types';
+import { Note, Status } from '../../types';
 import { NoteService } from '../../services/note.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
-import { Init } from 'v8';
 
 @Component({
   selector: 'app-note',
@@ -21,6 +19,8 @@ export class NoteComponent implements OnInit {
     MEDIUM: 'text-3xl',
     LOW: 'text-lg',
   };
+
+  Status = Status;
 
   updateNoteForm = new FormGroup({
     noteContent: new FormControl<string>(''),
@@ -44,5 +44,13 @@ export class NoteComponent implements OnInit {
     const noteContent = this.updateNoteForm.controls.noteContent
       .value as string;
     this.noteService.updateNote(noteId, noteContent);
+  };
+
+  doneNote = (noteId: string) => {
+    this.noteService.doneNote(noteId);
+  };
+
+  incompleteNote = (noteId: string) => {
+    this.noteService.incompleteNote(noteId);
   };
 }

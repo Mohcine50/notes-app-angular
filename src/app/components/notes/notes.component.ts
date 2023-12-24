@@ -13,15 +13,16 @@ import { Observable, map, pipe } from 'rxjs';
   styles: ``,
 })
 export class NotesComponent implements OnInit {
-  notes$!: Observable<Note[]>;
-
-  constructor(private noteService: NoteService) {}
-
   NOTE_SIZE = {
     HIGH: 1,
     MEDIUM: 2,
     LOW: 3,
   };
+
+  notes$!: Observable<Note[]>;
+
+  constructor(private noteService: NoteService) {}
+
   ngOnInit(): void {
     this.notes$ = this.noteService.getAllNotes().pipe(
       map((notes) =>

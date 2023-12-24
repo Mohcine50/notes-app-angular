@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Note, Priority } from '../types';
+import { Note, Priority, Status } from '../types';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -34,6 +34,7 @@ export class NoteService {
       id: noteId.toString(),
       content,
       priority,
+      status: Status.INCOMPLETE,
     };
 
     notes.push(note);
@@ -43,6 +44,24 @@ export class NoteService {
   deleteNote = (noteId: string) => {
     const notes = this.getNotesFromStorage();
     const updatedNotes = notes.filter((note) => note.id !== noteId);
+    this.updateNotesOnStorage(updatedNotes);
+  };
+
+  doneNote = (noteId: string) => {
+    const notes = this.getNotesFromStorage();
+    const updatedNotes = notes.map((note) => {
+      if (note.id === noteId) return { ...note, status: Status.DONE };
+      else return note;
+    });
+    this.updateNotesOnStorage(updatedNotes);
+  };
+
+  incompleteNote = (noteId: string) => {
+    const notes = this.getNotesFromStorage();
+    const updatedNotes = notes.map((note) => {
+      if (note.id === noteId) return { ...note, status: Status.INCOMPLETE };
+      else return note;
+    });
     this.updateNotesOnStorage(updatedNotes);
   };
 
