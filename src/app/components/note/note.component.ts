@@ -14,11 +14,11 @@ import { Init } from 'v8';
 })
 export class NoteComponent implements OnInit {
   @Input() note!: Note;
-  updateNoteState: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  updateNoteState = false;
 
   NOTE_SIZE = {
     HIGH: 'text-5xl',
-    MEDIUM: 'text-2xl',
+    MEDIUM: 'text-3xl',
     LOW: 'text-lg',
   };
 
@@ -36,9 +36,7 @@ export class NoteComponent implements OnInit {
   };
 
   changeUpdateState = () => {
-    console.log(this.updateNoteState);
-    this.updateNoteState.next(true);
-    console.log(this.updateNoteState);
+    this.updateNoteState = !this.updateNoteState;
   };
 
   updateNote = (noteId: string, e: Event) => {
